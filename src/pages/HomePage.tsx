@@ -29,7 +29,7 @@ const PUBLICATIONS: PublicationCardProps[] = [
     links: [
       { label: "Website", href: "https://link.springer.com/article/10.1186/s41235-025-00640-7" },
     ],
-    imageSrc: "/paper_teasers/eye_cognitive_2025.png",
+    imageSrc: `${import.meta.env.BASE_URL}/paper_teasers/eye_cognitive_2025.png`,
     imageAlt: "Egocentric view of nursing simulation with gaze overlay"
   },
   {
@@ -43,7 +43,7 @@ const PUBLICATIONS: PublicationCardProps[] = [
       { label: "Website", href: "https://link.springer.com/chapter/10.1007/978-3-031-36336-8_41" },
       { label: "Paper", href: "https://www.researchgate.net/profile/Caleb-Vatral/publication/372015876_Prediction_of_Students%27_Self-confidence_Using_Multimodal_Features_in_an_Experiential_Nurse_Training_Environment/links/64c96492862f8d299989172d/Prediction-of-Students-Self-confidence-Using-Multimodal-Features-in-an-Experiential-Nurse-Training-Environment.pdf" },
     ],
-    imageSrc: "/paper_teasers/Prediction_AIED2023.png",
+    imageSrc: `${import.meta.env.BASE_URL}/paper_teasers/Prediction_AIED2023.png`,
     imageAlt: "Feature Set used in Analysis"
   },
 ]
@@ -131,14 +131,14 @@ export function HomePage() {
               name="Yike Zhang"
               href="https://yikezhang.me"
               subtitle="Assistant Professor, Healthcare Ed | LLMs"
-              imageSrc={`/profiles/yike_zhang.jpeg`}
+              imageSrc={`${import.meta.env.BASE_URL}/profiles/yike_zhang.jpeg`}
               external
             />
             <AvatarCard
               name="Eduardo Davalos"
               href="https://edavalosanaya.github.io"
               subtitle="Assistant Professor, AIED | HCI | LLMs"
-              imageSrc={`/profiles/eduardo_davalos.webp`}
+              imageSrc={`${import.meta.env.BASE_URL}/profiles/eduardo_davalos.webp`}
               external
             />
           </div>
