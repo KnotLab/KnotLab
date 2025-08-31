@@ -89,10 +89,11 @@ export function FriendlyHero({
               <Button
                 asChild
                 className="
-                  h-12 rounded-xl text-lg px-8 font-bold shadow-sm hover:shadow-md
+                  h-12 !py-0 px-8 min-w-[10rem]           /* normalize height + equal width */
+                  rounded-xl text-lg font-bold
+                  shadow-sm hover:shadow-md
                   bg-[rgb(180,95,65)] hover:bg-[rgb(180,95,65)/0.9]
-                  text-white
-                  focus-visible:ring-[rgb(180,95,65)/.35]
+                  text-white focus-visible:ring-[rgb(180,95,65)/.35]
                 "
               >
                 <a href={primary.href}>{primary.label}</a>
@@ -101,19 +102,19 @@ export function FriendlyHero({
 
             {hasSecondary && (
               <Button
-                asChild
-                variant="outline"
-                className="
-                  h-12 px-8 text-lg rounded-xl
-                  font-bold
-                  border-2 border-[rgb(180,95,65)]
-                  text-[rgb(180,95,65)] hover:text-[rgb(180,95,65)]
-                  hover:bg-[rgb(180,95,65)/0.06] dark:hover:bg-[rgb(180,95,65)/0.12]
-                  focus-visible:ring-2 focus-visible:ring-[rgb(180,95,65)/.25]
-                "
-              >
-                <a href={secondary.href}>{secondary.label}</a>
-              </Button>
+              asChild
+              variant="outline"
+              className="
+                h-12 !py-0 px-8 min-w-[10rem]           /* same width + padding */
+                rounded-xl text-lg font-bold
+                border-2 border-[rgb(180,95,65)]
+                text-[rgb(180,95,65)] hover:text-[rgb(180,95,65)]
+                hover:bg-[rgb(180,95,65)/0.06] dark:hover:bg-[rgb(180,95,65)/0.12]
+                focus-visible:ring-2 focus-visible:ring-[rgb(180,95,65)/.25]
+              "
+            >
+              <a href={secondary.href}>{secondary.label}</a>
+            </Button>
             )}
           </div>
         </div>
