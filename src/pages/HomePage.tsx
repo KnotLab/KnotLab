@@ -96,7 +96,13 @@ export function HomePage() {
       {/* Main content */}
       <main>
 
-        <FriendlyHero />
+        <FriendlyHero
+          title="Hello and Welcome"
+          subtitle="The Knowledge-infused Nursing Oriented Training 🪢 Lab"
+          primary={{ label: "Contact Us", href: "mailto:yzhang5@stmarytx.edu" }}
+          secondary={{ label: "Our Work", href: "#publications" }}
+        />
+
 
         {/* (1) What we do? */}
         <Section id="what_we_do" 
