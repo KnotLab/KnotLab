@@ -24,6 +24,21 @@ import { BubblyTitle } from "@/components/ui/bubbly-title";
 const PUBLICATIONS: PublicationCardProps[] = [
   {
     title:
+      "WEBEYETRACK: Scalable Eye‑Tracking for the Browser via On‑Device Few‑Shot Personalization",
+    authors:
+      "E. Davalos*, Y. Zhang*, N. Srivastava, Y. Thatigotla, J. A. Salas, S. McFadden, S.-J. Cho, A. Goodwin, A. TS, G. Biswas",
+    venue: "arXiv",
+    year: 2025,
+    links: [
+      { label: "Website", href: "https://redforestai.github.io/WebEyeTrack/" },
+      { label: "Paper", href: "https://arxiv.org/abs/2508.19544" },
+      { label: "Code", href: "https://github.com/RedForestAi/WebEyeTrack" },
+    ],
+    imageSrc: `${import.meta.env.BASE_URL}/paper_teasers/WebEyeTrack_AAAI2026.jpg`,
+    imageAlt: "WebEyeTrack Architecture Figure"
+  },
+  {
+    title:
       "Eye movements as predictors of student experiences during nursing simulation learning events",
     authors:
       "M. Lee, C. Vatral, C. Cohn, E. Davalos, M. Jessee, G. Biswas, D. Levin",
@@ -98,6 +113,12 @@ export function HomePage() {
 
         <FriendlyHero
           title="Hello and Welcome"
+          titleImage={{
+          src: `${import.meta.env.BASE_URL}/profiles/cat_title.jpg`,
+          size: 150,          // px
+          rounded: true,     // set false for a square icon
+          position: "left",  // or "right"
+        }}
           subtitle="The Knowledge-infused Nursing Oriented Training 🪢 Lab"
           primary={{ label: "Contact Us", href: "mailto:yzhang5@stmarytx.edu" }}
           secondary={{ label: "Our Work", href: "#publications" }}
@@ -119,7 +140,7 @@ export function HomePage() {
             </p>
             <ul className="list-disc pl-6">
               <li>Developing AI-assisted simulation scenarios that reflect real-world clinical challenges.</li>
-              <li>Enhancing student feedback with intelligent assessment and personalized guidance.</li>
+              <li>Improving student feedback with intelligent assessment and personalized guidance.</li>
               <li>Integrating virtual patients and adaptive environments for enriched learning experiences.</li>
             </ul>
           </div>

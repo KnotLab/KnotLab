@@ -2,21 +2,51 @@ import { Button } from "@/components/ui/button";
 
 type Cta = { label: string; href?: string };
 
+// NEW: config for an image next to the title
+type TitleImage = {
+  src: string;
+  alt?: string;            // set "" if decorative
+  size?: number;           // px, default 48
+  rounded?: boolean;       // default true
+  position?: "left" | "right"; // default "left"
+  className?: string;
+};
+
 export function FriendlyHero({
   title = "Hello And Welcome",
   subtitle = "The Knowledge-infused Nursing Oriented Training 🪢 Lab",
   primary = { label: "Contact Us", href: "#" },
   secondary = { label: "Our Work", href: "#" },
   className = "",
+  // NEW: pass this to render an image by the title
+  titleImage,
 }: {
   title?: string;
   subtitle?: string;
   primary?: Cta;
   secondary?: Cta;
   className?: string;
+  titleImage?: TitleImage; // <-- NEW
 }) {
   const hasPrimary = primary?.href && primary.label;
   const hasSecondary = secondary?.href && secondary.label;
+
+  const imgSize = titleImage?.size ?? 100;
+  const imgEl = titleImage ? (
+    <img
+      src={titleImage.src}
+      alt={titleImage.alt ?? ""}
+      width={imgSize}
+      height={imgSize}
+      draggable={false}
+      style={{ width: imgSize, height: imgSize }} // prevents layout shift
+      className={[
+        "shrink-0 object-cover",
+        titleImage.rounded ?? true ? "rounded-full" : "",
+        titleImage.className ?? "",
+      ].join(" ")}
+    />
+  ) : null;
 
   return (
     <section className={["relative overflow-hidden", "py-20 sm:py-28", className].join(" ")}>
@@ -31,54 +61,59 @@ export function FriendlyHero({
               "text-4xl sm:text-6xl md:text-7xl",
               "text-stone-700 dark:text-stone-100",
               "[text-shadow:0_2px_0_rgba(255,255,255,0.6)] dark:[text-shadow:0_1px_0_rgba(0,0,0,0.4)]",
-              "font-[ui-rounded]"
+              "font-[ui-rounded]",
+              // NEW: allow placing an image inline with spacing
+              "inline-flex items-center gap-3 sm:gap-4 justify-center",
             ].join(" ")}
           >
-            {title}
+            {/* image on the LEFT (default) */}
+            {titleImage?.position !== "right" && imgEl}
+            <span className="leading-none">{title}</span>
+            {/* image on the RIGHT */}
+            {titleImage?.position === "right" && imgEl}
           </h1>
 
-          {/* subtitle now uses ui-rounded */}
           <p
             className={[
-              "mt-6 text-lg sm:text-xl leading-relaxed",
-              "text-stone-600 dark:text-stone-300",
+              "mt-4 text-lg sm:text-xl leading-snug",
               "max-w-3xl mx-auto",
+              "font-[ui-rounded] font-bold",
+              "text-[#7B3D06]"
             ].join(" ")}
           >
             {subtitle}
           </p>
 
-          {/* CTA buttons — square-ish with soft corners */}
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             {hasPrimary && (
               <Button
                 asChild
                 className="
-                    h-12 rounded-xl text-lg px-8 font-bold shadow-sm hover:shadow-md
-                    bg-[rgb(180,95,65)] hover:bg-[rgb(180,95,65)/0.9]
-                    text-white
-                    focus-visible:ring-[rgb(180,95,65)/.35]
+                  h-12 rounded-xl text-lg px-8 font-bold shadow-sm hover:shadow-md
+                  bg-[rgb(180,95,65)] hover:bg-[rgb(180,95,65)/0.9]
+                  text-white
+                  focus-visible:ring-[rgb(180,95,65)/.35]
                 "
-                >
+              >
                 <a href={primary.href}>{primary.label}</a>
-                </Button>
+              </Button>
             )}
 
             {hasSecondary && (
-                <Button
-                    asChild
-                    variant="outline"
-                    className="
-                        h-12 px-8 text-lg rounded-xl
-                        font-bold
-                        border-2 border-[rgb(180,95,65)]
-                        text-[rgb(180,95,65)] hover:text-[rgb(180,95,65)]
-                        hover:bg-[rgb(180,95,65)/0.06] dark:hover:bg-[rgb(180,95,65)/0.12]
-                        focus-visible:ring-2 focus-visible:ring-[rgb(180,95,65)/.25]
-                    "
-                    >
-                    <a href={secondary.href}>{secondary.label}</a>
-                </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="
+                  h-12 px-8 text-lg rounded-xl
+                  font-bold
+                  border-2 border-[rgb(180,95,65)]
+                  text-[rgb(180,95,65)] hover:text-[rgb(180,95,65)]
+                  hover:bg-[rgb(180,95,65)/0.06] dark:hover:bg-[rgb(180,95,65)/0.12]
+                  focus-visible:ring-2 focus-visible:ring-[rgb(180,95,65)/.25]
+                "
+              >
+                <a href={secondary.href}>{secondary.label}</a>
+              </Button>
             )}
           </div>
         </div>
