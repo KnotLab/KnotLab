@@ -1,9 +1,12 @@
 import { Github } from "lucide-react";
+import { FriendlyHero } from "@/components/ui/friendly-hero";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 import { AvatarCard } from "@/components/ui/avatar-card";
 import { PublicationCard, type PublicationCardProps } from "@/components/ui/publication-card";
 import { scrollToId, DesktopNav, MobileNav } from "@/components/ui/navbar";
+
+import { BubblyTitle } from "@/components/ui/bubbly-title";
 
 // https://gist.github.com/SheldonWangRJT/8d3f44a35c8d1386a396b9b49b43c385
 
@@ -93,8 +96,15 @@ export function HomePage() {
       {/* Main content */}
       <main>
 
+        <FriendlyHero />
+
         {/* (1) What we do? */}
-        <Section id="what_we_do" title="What we do?">
+        <Section id="what_we_do" 
+                  title={<BubblyTitle size="sm" solidColor="oklch(0.5794 0.1185 39.9)">What We Do?</BubblyTitle>} 
+                  titleImage={{src: `${import.meta.env.BASE_URL}/profiles/cat_paw.jpg`,
+                              alt: "",      // or "" if purely decorative
+                              size: 60,
+                              rounded: true}}>
           <div className="space-y-4">
             <p>
             We focus on advancing <strong>healthcare education</strong> through AI-driven nursing simulation-based training.
@@ -110,7 +120,11 @@ export function HomePage() {
         </Section>
 
         {/* (2) Our Vision */}
-        <Section id="vision" title="Our Vision">
+        <Section id="vision" title={<BubblyTitle size="sm" solidColor="oklch(0.5794 0.1185 39.9)">Our Vision</BubblyTitle>} 
+                titleImage={{src: `${import.meta.env.BASE_URL}/profiles/cat_paw.jpg`,
+                            alt: "",      // or "" if purely decorative
+                            size: 60,
+                            rounded: true}}>
           <div className="space-y-4">
             <p>
               We believe the future of nursing education lies in creating <strong>powerful, data-driven, and human-centered learning tools</strong>.
@@ -118,34 +132,51 @@ export function HomePage() {
               compassionate, and effective care.
             </p>
             <p>
-              Our vision is to make simulation training more accessible, scalable, and impactful—equipping educators with
+              Our vision is to make simulation training more accessible, scalable, and impactful by equipping educators with
               intelligent support systems and giving students opportunities to practice, fail safely, and grow with confidence.
             </p>
           </div>
         </Section>
 
         {/* (3) Our Team */}
-        <Section id="team" title="Our Team">
+        <Section id="team" 
+                title={<BubblyTitle size="sm" solidColor="oklch(0.5794 0.1185 39.9)">Our Team</BubblyTitle>} 
+                titleImage={{src: `${import.meta.env.BASE_URL}/profiles/cat_paw.jpg`,
+                            alt: "",      // or "" if purely decorative
+                            size: 60,
+                            rounded: true}}>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <AvatarCard
-              name="Yike Zhang"
+              name="Dr. Yike Zhang"
               href="https://yikezhang.me"
-              subtitle="Assistant Professor, Healthcare Ed | LLMs"
-              imageSrc={`${import.meta.env.BASE_URL}/profiles/yike_zhang.jpeg`}
+              subtitle="Assistant Professor, HCI | Healthcare | AIED | LLMs"
+              imageSrc={`${import.meta.env.BASE_URL}/profiles/ragdoll.jpg`}
+              hoverImageSrc={`${import.meta.env.BASE_URL}/profiles/yike_zhang.jpeg`}
               external
             />
             <AvatarCard
-              name="Eduardo Davalos"
+              name="Dr. Eduardo Davalos"
               href="https://edavalosanaya.github.io"
               subtitle="Assistant Professor, AIED | HCI | LLMs"
-              imageSrc={`${import.meta.env.BASE_URL}/profiles/eduardo_davalos.webp`}
+              imageSrc={`${import.meta.env.BASE_URL}/profiles/bb.jpg`}
+              hoverImageSrc={`${import.meta.env.BASE_URL}/profiles/eduardo_davalos.webp`}
+              external
+            />
+            <AvatarCard
+              name="To Be Filled In ..."
+              subtitle=""
+              imageSrc={`${import.meta.env.BASE_URL}/profiles/new_cat.jpg`}
               external
             />
           </div>
         </Section>
 
         {/* (4) Our Publications */}
-        <Section id="publications" title="Our Publications">
+        <Section id="publications" title={<BubblyTitle size="sm" solidColor="oklch(0.5794 0.1185 39.9)">Publications</BubblyTitle>} 
+                  titleImage={{src: `${import.meta.env.BASE_URL}/profiles/cat_paw.jpg`,
+                              alt: "",      // or "" if purely decorative
+                              size: 60,
+                              rounded: true}}>
           <div className="space-y-4">
             {PUBLICATIONS.map((pub) => (
               <PublicationCard key={pub.title} {...pub} />
@@ -160,17 +191,6 @@ export function HomePage() {
           © {new Date().getFullYear()} The Knot Lab. All rights reserved.
         </div>
       </footer>
-
-      {/* Back to top */}
-      <div className="fixed bottom-5 right-5">
-        <Button
-          variant="secondary"
-          onClick={() => scrollToId("hero")}
-          className="shadow-lg"
-        >
-          Back to top
-        </Button>
-      </div>
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from "./sheet";
 import { Button } from "./button";
 
 const SECTIONS = [
-  { id: "what_we_do", label: "What we do?" },
+  { id: "what_we_do", label: "What We Do?" },
   { id: "vision", label: "Our Vision" },
   { id: "team", label: "Our Team" },
   { id: "publications", label: "Publications" }
