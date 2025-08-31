@@ -108,6 +108,18 @@ export function HomePage() {
         </div>
       </header>
 
+      {/* Static Image On the Left Panel */}
+      <img
+        src={`${import.meta.env.BASE_URL}/profiles/hi.jpg`}
+        alt="" aria-hidden="true"
+        loading="lazy" draggable="false"
+        className="hidden lg:block
+                  fixed left-4 bottom-20
+                  z-30 w-36 h-auto
+                  pointer-events-none select-none
+                  border-0 rounded-none ring-0 shadow-none "
+      />
+
       {/* Main content */}
       <main>
 
