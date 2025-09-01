@@ -57,6 +57,11 @@ export function CatYarn({
   const maxRope = Math.max(140, boxH - pawY - 80);
   const ropeLen = Math.round(lerp(100, maxRope, progress));
 
+  const minLen = 100;
+  const ropeT = clamp01((ropeLen - minLen) / Math.max(1, maxRope - minLen)); // 0..1
+  const bounceImpulse = -lerp(300, 1100, ropeT); // px/s (more negative = higher bounce)
+
+
   const ballSize = Math.max(12, Math.round(lerp(ballStart, ballEnd, progress)));
   const ballX = pawX;
   const ballY = pawY + ropeLen;
@@ -69,6 +74,57 @@ export function CatYarn({
     hideBelow === "xl" ? "hidden xl:block" :
     hideBelow === "lg" ? "hidden lg:block" :
     hideBelow === "md" ? "hidden md:block" : "";
+
+  // ========= Bounce State & Physics =========
+  const [bounceY, setBounceY] = React.useState(0); // negative = up
+  const rafRef = React.useRef<number | null>(null);
+  const phys = React.useRef({ running: false, v: 0, y: 0, last: 0 });
+
+  const startBounce = React.useCallback((impulse = -900) => {
+    const p = phys.current;
+    if (p.running) return;
+    p.running = true;
+    p.v = impulse;             // upward kick
+    p.y = 0;                   // offset from rest (0 = at ballY)
+    p.last = performance.now();
+
+    const gravity = 2000;      // px/s^2
+    const restitution = 0.55;  // bounciness (0.3 = thud, 0.8 = springy)
+    const stopV = 60;          // stop thresholds
+    const stopY = 2;
+
+    const step = (now: number) => {
+      const dt = Math.min(0.032, (now - p.last) / 1000);
+      p.last = now;
+
+      p.v += gravity * dt;
+      p.y += p.v * dt;
+
+      // floor at rest position (y >= 0)
+      if (p.y > 0) {
+        p.y = 0;
+        p.v = -p.v * restitution;
+      }
+
+      setBounceY(p.y);
+
+      if (Math.abs(p.v) < stopV && Math.abs(p.y) < stopY) {
+        p.running = false;
+        setBounceY(0);
+        rafRef.current = null;
+        return;
+      }
+      rafRef.current = requestAnimationFrame(step);
+    };
+
+    rafRef.current = requestAnimationFrame(step);
+  }, []);
+
+  React.useEffect(() => {
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
+
+  const ballYBounce = ballY + bounceY;
 
   return (
     <div
@@ -86,21 +142,28 @@ export function CatYarn({
       }}
     >
       {/* Rope + ball */}
-      <svg viewBox={`0 0 ${boxW} ${boxH}`} width={boxW} height={boxH} className="block absolute inset-0">
+      <svg viewBox={`0 0 ${boxW} ${boxH}`} width={boxW} height={boxH} className="block absolute inset-0 z-10">
         <path
-          d={`M ${pawX} ${pawY} Q ${cx} ${cy} ${ballX} ${ballY}`}
+          d={`M ${pawX} ${pawY} Q ${cx} ${cy} ${ballX} ${ballYBounce}`}   // CHANGED: ballY → ballYBounce
           fill="none"
           stroke={color}
           strokeWidth={3}
           strokeLinecap="round"
           strokeLinejoin="round"
+          style={{ pointerEvents: "none" }}       // rope is not interactive
         />
-        <g transform={`translate(${ballX}, ${ballY})`}>
+        <g
+          transform={`translate(${ballX}, ${ballYBounce})`}
+          onClick={() => startBounce(bounceImpulse)}   // ← was startBounce()
+          style={{ pointerEvents: "auto", cursor: phys.current.running ? "default" : "pointer", touchAction: "manipulation" }}
+        >
           <circle r={ballSize / 2} fill={color} />
           <path d={`M ${-ballSize/3} ${-ballSize/2.5} q ${ballSize/3} ${ballSize/3} 0 ${ballSize/1.6}`}
                 fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="2" />
           <path d={`M ${-ballSize/6} ${-ballSize/2.5} q ${ballSize/3} ${ballSize/3} 0 ${ballSize/1.6}`}
                 fill="none" stroke="#fff" strokeOpacity="0.35" strokeWidth="2" />
+          {/* slightly bigger hit area for easy clicks */}
+          <circle r={Math.max(ballSize / 2 + 12, 24)} fill="transparent" />
         </g>
       </svg>
 
@@ -109,10 +172,9 @@ export function CatYarn({
         src={catSrc}
         alt=""
         draggable={false}
-        className="absolute right-0 top-0 block object-contain border-0 rounded-none shadow-none"
+        className="absolute right-0 top-0 z-0 block object-contain border-0 rounded-none shadow-none"
         style={{ width: catWidth, height: "auto" }}
       />
     </div>
   );
 }
-
