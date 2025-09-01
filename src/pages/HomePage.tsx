@@ -6,21 +6,7 @@ import { AvatarCard } from "@/components/ui/avatar-card";
 import { PublicationCard, type PublicationCardProps } from "@/components/ui/publication-card";
 import { scrollToId, DesktopNav, MobileNav } from "@/components/ui/navbar";
 import { BubblyTitle } from "@/components/ui/bubbly-title";
-
 import { CatYarn } from "@/components/ui/cat-yarn";
-
-// https://gist.github.com/SheldonWangRJT/8d3f44a35c8d1386a396b9b49b43c385
-
-// If you're using Vite/CRA asset imports, replace with your logo path or remove
-// import logo from "./logo.svg";
-
-/**
- * Single-page App scaffold for the WebEyeTrack site
- * - Top fixed navbar built with shadcn/ui
- * - Smooth in-page scrolling to sections
- * - Mobile menu via <Sheet>
- * - Accessible, keyboard-friendly nav
- */
 
 const PUBLICATIONS: PublicationCardProps[] = [
   {
@@ -132,6 +118,7 @@ export function HomePage() {
       rightOffset={16}
       ballOffsetX={-40}
       hideBelow="lg"
+      ballImageSrc={`${import.meta.env.BASE_URL}/profiles/yarn_ball.png`}
     />
 
       {/* Main content */}

@@ -13,6 +13,7 @@ type Props = {
   rightOffset?: number;     // px from right
   hideBelow?: "md" | "lg" | "xl";
   ballOffsetX?: number;
+  ballImageSrc?: string;
 };
 
 export function CatYarn({
@@ -24,6 +25,7 @@ export function CatYarn({
   topOffset = 96,
   rightOffset = 16,
   hideBelow = "lg",
+  ballImageSrc,
 }: Props) {
   const [progress, setProgress] = React.useState(0);
   const [vh, setVh] = React.useState<number>(typeof window !== "undefined" ? window.innerHeight : 800);
@@ -157,13 +159,19 @@ export function CatYarn({
           onClick={() => startBounce(bounceImpulse)}   // ← was startBounce()
           style={{ pointerEvents: "auto", cursor: phys.current.running ? "default" : "pointer", touchAction: "manipulation" }}
         >
-          <circle r={ballSize / 2} fill={color} />
-          <path d={`M ${-ballSize/3} ${-ballSize/2.5} q ${ballSize/3} ${ballSize/3} 0 ${ballSize/1.6}`}
-                fill="none" stroke="#fff" strokeOpacity="0.5" strokeWidth="2" />
-          <path d={`M ${-ballSize/6} ${-ballSize/2.5} q ${ballSize/3} ${ballSize/3} 0 ${ballSize/1.6}`}
-                fill="none" stroke="#fff" strokeOpacity="0.35" strokeWidth="2" />
-          {/* slightly bigger hit area for easy clicks */}
-          <circle r={Math.max(ballSize / 2 + 12, 24)} fill="transparent" />
+          ballImageSrc ? (
+            <image
+              href={ballImageSrc}            // ← use href (works in modern React/SVG)
+              x={-ballSize / 2}
+              y={-ballSize / 2}
+              width={ballSize}
+              height={ballSize}
+              preserveAspectRatio="xMidYMid meet"
+              onError={(e) => {
+                (e.currentTarget as any).style.display = "none";
+              }}
+            />
+          )
         </g>
       </svg>
 
