@@ -69,8 +69,8 @@ export function CatYarn({
   const boxH = vh - topOffset - 24; // leave a bit of breathing room
 
   // Vertical rope: from near the cat's paw downwards
-  const pawX = boxW - Math.round(catWidth * 0.45) - 35.51;
-  const pawY = Math.round(catWidth * 0.5);
+  const pawX = boxW - Math.round(catWidth * 0.45) -20;
+  const pawY = Math.round(catWidth * 0.5)+9;
   const maxRope = Math.max(140, boxH - pawY - 80);
   const ropeLen = Math.round(lerp(100, maxRope, progress));
 
@@ -195,7 +195,7 @@ export function CatYarn({
         src={catSrc}
         alt=""
         draggable={false}
-        className="absolute right-0 top-0 z-0 block object-contain border-0 rounded-none shadow-none"
+        className="absolute right-0 top-0 z-0 block object-contain border-0 rounded-none shadow-none scale-85"
         style={{ width: catWidth, height: "auto" }}
       />
     </div>

@@ -97,25 +97,25 @@ export function HomePage() {
 
       {/* Static Image On the Left Panel */}
       <img
-        src={`${import.meta.env.BASE_URL}/profiles/hi.jpg`}
+        src={`${import.meta.env.BASE_URL}/profiles/cat_hi.png`}
         alt="" aria-hidden="true"
         loading="lazy" draggable="false"
         className="hidden lg:block
                   fixed left-4 bottom-20
-                  z-30 w-36 h-auto
+                  z-30 w-28 h-auto
                   pointer-events-none select-none
                   border-0 rounded-none ring-0 shadow-none "
       />
 
       {/* Right-side cat that plays with yarn while scrolling */}
       <CatYarn
-      catSrc={`${import.meta.env.BASE_URL}/profiles/cat_yarn.png`}
+      catSrc={`${import.meta.env.BASE_URL}/profiles/cat_yarn_clean.png`}
       catWidth={200}
       ballStart={70}
       ballEnd={32}
       color="#b45f41"     // matches your brand
       topOffset={96}      // clear sticky header; tweak to taste
-      rightOffset={16}
+      rightOffset={0}
       ballOffsetX={-40}
       hideBelow="lg"
       ballImageSrc={`${import.meta.env.BASE_URL}/profiles/yarn_ball.png`}
