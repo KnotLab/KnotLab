@@ -30,13 +30,28 @@ export function CatYarn({
   const [progress, setProgress] = React.useState(0);
   const [vh, setVh] = React.useState<number>(typeof window !== "undefined" ? window.innerHeight : 800);
 
+  const [angle, setAngle] = React.useState(0);
+  const lastYRef = React.useRef<number>(typeof window !== "undefined" ? window.scrollY : 0);
+
   React.useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const onResize = () => setVh(window.innerHeight);
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(clamp01(max > 0 ? window.scrollY / max : 0));
+      const y = window.scrollY;
+
+      setProgress(clamp01(max > 0 ? y / max : 0));
+
+      // Spin only when scrolling down
+      if (!reduce) {
+        const dy = y - lastYRef.current;
+        if (dy > 0) {
+          const spinPerPx = 0.15; // degrees per pixel scrolled (tweak to taste)
+          setAngle(a => (a + dy * spinPerPx) % 360);
+        }
+        lastYRef.current = y;
+      }
     };
 
     onResize(); onScroll();
@@ -146,22 +161,22 @@ export function CatYarn({
       {/* Rope + ball */}
       <svg viewBox={`0 0 ${boxW} ${boxH}`} width={boxW} height={boxH} className="block absolute inset-0 z-10">
         <path
-          d={`M ${pawX} ${pawY} Q ${cx} ${cy} ${ballX} ${ballYBounce}`}   // CHANGED: ballY → ballYBounce
+          d={`M ${pawX} ${pawY} Q ${cx} ${cy} ${ballX} ${ballYBounce}`}
           fill="none"
           stroke={color}
           strokeWidth={3}
           strokeLinecap="round"
           strokeLinejoin="round"
-          style={{ pointerEvents: "none" }}       // rope is not interactive
+          style={{ pointerEvents: "none" }} // rope is not interactive
         />
         <g
-          transform={`translate(${ballX}, ${ballYBounce})`}
-          onClick={() => startBounce(bounceImpulse)}   // ← was startBounce()
+          transform={`translate(${ballX}, ${ballYBounce}) rotate(${angle})`}
+          onClick={() => startBounce(bounceImpulse)}
           style={{ pointerEvents: "auto", cursor: phys.current.running ? "default" : "pointer", touchAction: "manipulation" }}
         >
           ballImageSrc ? (
             <image
-              href={ballImageSrc}            // ← use href (works in modern React/SVG)
+              href={ballImageSrc}
               x={-ballSize / 2}
               y={-ballSize / 2}
               width={ballSize}
