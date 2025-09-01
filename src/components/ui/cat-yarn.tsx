@@ -70,7 +70,7 @@ export function CatYarn({
 
   // Vertical rope: from near the cat's paw downwards
   const pawX = boxW - Math.round(catWidth * 0.45) -20;
-  const pawY = Math.round(catWidth * 0.5)+9;
+  const pawY = Math.round(catWidth * 0.5)+9; // 34 for the cat_box image
   const maxRope = Math.max(140, boxH - pawY - 80);
   const ropeLen = Math.round(lerp(100, maxRope, progress));
 
