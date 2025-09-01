@@ -228,11 +228,11 @@ export function HomePage() {
     {/* Have a good day! */}
     <div className="container mx-auto max-w-6xl px-4 py-8">
       <img
-        src={`${import.meta.env.BASE_URL}/profiles/lovely_cats.jpg`}
+        src={`${import.meta.env.BASE_URL}/profiles/lovely_cats.png`}
         loading="lazy"
         draggable="false"
         className="mx-auto block
-                  w-full max-w-[420px] sm:max-w-[520px]
+                  w-full max-w-[420px] sm:max-w-[820px]
                   h-auto rounded-none shadow-none border-0 /* no edges */"
       />
     </div>
