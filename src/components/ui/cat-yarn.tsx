@@ -52,8 +52,8 @@ export function CatYarn({
   const boxH = vh - topOffset - 24; // leave a bit of breathing room
 
   // Vertical rope: from near the cat's paw downwards
-  const pawX = boxW - Math.round(catWidth * 0.45) - 36;
-  const pawY = Math.round(catWidth * 0.48);
+  const pawX = boxW - Math.round(catWidth * 0.45) - 35.51;
+  const pawY = Math.round(catWidth * 0.5);
   const maxRope = Math.max(140, boxH - pawY - 80);
   const ropeLen = Math.round(lerp(100, maxRope, progress));
 
