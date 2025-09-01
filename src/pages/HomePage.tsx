@@ -5,8 +5,9 @@ import { Section } from "@/components/ui/section";
 import { AvatarCard } from "@/components/ui/avatar-card";
 import { PublicationCard, type PublicationCardProps } from "@/components/ui/publication-card";
 import { scrollToId, DesktopNav, MobileNav } from "@/components/ui/navbar";
-
 import { BubblyTitle } from "@/components/ui/bubbly-title";
+
+import { CatYarn } from "@/components/ui/cat-yarn";
 
 // https://gist.github.com/SheldonWangRJT/8d3f44a35c8d1386a396b9b49b43c385
 
@@ -119,6 +120,19 @@ export function HomePage() {
                   pointer-events-none select-none
                   border-0 rounded-none ring-0 shadow-none "
       />
+
+      {/* Right-side cat that plays with yarn while scrolling */}
+      <CatYarn
+      catSrc={`${import.meta.env.BASE_URL}/profiles/cat_yarn.png`}
+      catWidth={200}
+      ballStart={70}
+      ballEnd={32}
+      color="#b45f41"     // matches your brand
+      topOffset={96}      // clear sticky header; tweak to taste
+      rightOffset={16}
+      ballOffsetX={-40}
+      hideBelow="lg"
+    />
 
       {/* Main content */}
       <main>
